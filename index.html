@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的作品集 - Xiao Ming</title>
 
+  <!-- ========== CSS 样式开始 ========== -->
+  <style>
+    /* ---------- 1. 全局重置 ---------- */
+    /* 
+      把所有元素默认自带的内外边距都清零
+      box-sizing: border-box 表示元素宽度包含内边距和边框
+      这样设置宽高更直观
+    */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ---------- 2. 页面基础样式 ---------- */
+    body {
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      /* 系统默认字体，中文用苹方/微软雅黑 */
+      background-color: #0a0a0a;
+      /* 深黑色背景，显高级 */
+      color: #e0e0e0;
+      /* 浅灰白色文字，深色背景上不刺眼 */
+      line-height: 1.7;
+      /* 行高，让文字之间呼吸感更好 */
+      overflow-x: hidden;
+      /* 防止水平滚动条出现 */
+    }
+
+    /* ---------- 3. 导航栏 ---------- */
+    nav {
+      display: flex;
+      /* 弹性布局，让里面的元素水平排列 */
+      justify-content: space-between;
+      /* 两端对齐，左边放 logo，右边放菜单 */
+      align-items: center;
+      /* 垂直居中 */
+      padding: 20px 80px;
+      /* 上下20px，左右80px 的内边距 */
+      background-color: rgba(10, 10, 10, 0.9);
+      /* 半透明黑色背景 */
+      backdrop-filter: blur(10px);
+      /* 毛玻璃效果，背后的内容会被模糊 */
+      position: fixed;
+      /* 固定在屏幕顶部，滚动时不动 */
+      top: 0;
+      left: 0;
+      width: 100%;
+      /* 宽度撑满屏幕 */
+      z-index: 1000;
+      /* 层级最高，确保导航栏始终在最上面 */
+    }
+
+    /* Logo 文字样式 */
+    .logo {
+      font-size: 1.5rem;
+      /* 1.5倍根字号，约24px */
+      font-weight: 700;
+      /* 粗体 */
+      color: #64ffda;
+      /* 青绿色，点睛色 */
+      letter-spacing: 2px;
+      /* 字间距，显精致 */
+    }
+
+    /* 导航菜单容器 */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      /* 去掉列表的圆点 */
+      gap: 40px;
+      /* 每个菜单项之间的间距，现代写法 */
+    }
+
+    /* 每个菜单链接 */
+    .nav-links a {
+      color: #cccccc;
+      /* 浅灰色 */
+      text-decoration: none;
+      /* 去掉下划线 */
+      font-size: 0.95rem;
+      transition: color 0.3s;
+      /* 颜色过渡动画，0.3秒 */
+    }
+
+    /* 鼠标悬停在链接上时 */
+    .nav-links a:hover {
+      color: #64ffda;
+      /* 变成青绿色 */
+    }
+
+    /* ---------- 4. 头部/Hero 区域 ---------- */
+    .hero {
+      height: 100vh;
+      /* 占满整个屏幕高度 */
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      justify-content: center;
+      /* 垂直居中 */
+      align-items: center;
+      /* 水平居中 */
+      text-align: center;
+      padding: 0 20px;
+      margin-top: 0;
+      /* 因为导航栏已fixed，不需要额外margin */
+    }
+
+    /* 大标题 */
+    .hero h1 {
+      font-size: 4rem;
+      /* 超大字号，约64px */
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #64ffda, #48c6ef);
+      /* 渐变色：从青绿到天蓝 */
+      -webkit-background-clip: text;
+      /* 背景只应用到文字上 */
+      -webkit-text-fill-color: transparent;
+      /* 文字本身透明，露出背景渐变 */
+      background-clip: text;
+    }
+
+    /* 副标题 */
+    .hero p {
+      font-size: 1.2rem;
+      color: #aaaaaa;
+      max-width: 600px;
+      /* 最大宽度，防止文字太长不美观 */
+      margin-bottom: 40px;
+    }
+
+    /* CTA 按钮 */
+    .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 2px solid #64ffda;
+      color: #64ffda;
+      text-decoration: none;
+      border-radius: 50px;
+      /* 胶囊形状 */
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      /* 所有属性变化都过渡 */
+    }
+
+    /* 按钮悬停效果 */
+    .btn:hover {
+      background-color: rgba(100, 255, 218, 0.1);
+      /* 半透明青绿背景 */
+      box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+      /* 发光效果 */
+    }
+
+    /* ---------- 5. 作品集网格 ---------- */
+    .section {
+      padding: 100px 80px;
+      /* 上下100px，左右80px */
+      max-width: 1200px;
+      margin: 0 auto;
+      /* 居中 */
+    }
+
+    /* 章节标题 */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* 标题下方的装饰线 */
+    .section-title::after {
+      content: '';
+      /* 伪元素必须有content */
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #64ffda;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+
+    /* 作品卡片网格 */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      /* 
+        自适应列数：
+        auto-fit: 自动填充列
+        minmax(300px, 1fr): 每列最小300px，最大平均分配
+        这意味着屏幕宽时显示3列，窄时自动变2列或1列
+      */
+      gap: 30px;
+      /* 卡片间距 */
+    }
+
+    /* 单个作品卡片 */
+    .project-card {
+      background: #1a1a1a;
+      /* 深灰色卡片背景 */
+      border-radius: 16px;
+      /* 大圆角 */
+      overflow: hidden;
+      /* 让圆角也能裁剪内部图片 */
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      /* 鼠标变手型，暗示可点击 */
+    }
+
+    /* 卡片悬停：上浮 + 阴影 */
+    .project-card:hover {
+      transform: translateY(-10px);
+      /* 向上移动10px */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      /* 大阴影 */
+    }
+
+    /* 卡片封面图区域 */
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      /* 用渐变色作为占位图 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      /* emoji 作为占位图标 */;
+    }
+
+    /* 卡片文字区域 */
+    .project-info {
+      padding: 25px;
+    }
+
+    .project-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      color: #aaaaaa;
+      margin-bottom: 15px;
+    }
+
+    /* 技术标签容器 */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* 单个标签 */
+    .tag {
+      background: #2a2a2a;
+      color: #64ffda;
+      padding: 4px 12px;
+      border-radius: 20px;
+      /* 胶囊形状 */
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* ---------- 6. 关于我 ---------- */
+    .about-content {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      /* 垂直居中 */;
+    }
+
+    /* 头像占位图 */
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      /* 圆形 */
+      background: linear-gradient(135deg, #64ffda, #48c6ef);
+      flex-shrink: 0;
+      /* 不会被压缩 */;
+    }
+
+    .about-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: #bbbbbb;
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+
+    /* ---------- 7. 联系表单 ---------- */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 15px 20px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #e0e0e0;
+      font-size: 1rem;
+      font-family: inherit;
+      /* 继承body字体 */
+      transition: border-color 0.3s;
+    }
+
+    /* 输入框获得焦点时边框亮起 */
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #64ffda;
+    }
+
+    .contact-form textarea {
+      height: 150px;
+      resize: vertical;
+      /* 只能垂直拉伸 */
+    }
+
+    /* 提交按钮 */
+    .submit-btn {
+      padding: 15px 40px;
+      background: transparent;
+      border: 2px solid #64ffda;
+      color: #64ffda;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      align-self: flex-start;
+      /* 不拉伸，靠左 */;
+    }
+
+    .submit-btn:hover {
+      background: rgba(100, 255, 218, 0.1);
+      box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+    }
+
+    /* ---------- 8. 页脚 ---------- */
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #222;
+      /* 顶部细线 */
+      color: #777;
+      font-size: 0.85rem;
+    }
+
+    /* ---------- 9. 响应式适配（手机） ---------- */
+    /* 当屏幕宽度 ≤ 768px 时生效 */
+    @media (max-width: 768px) {
+      nav {
+        padding: 15px 20px;
+        /* 缩小导航栏内边距 */;
+      }
+
+      .nav-links {
+        gap: 20px;
+        /* 菜单间距缩小 */;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        /* 标题在手机上缩小 */;
+      }
+
+      .section {
+        padding: 60px 20px;
+        /* 章节内边距缩小 */;
+      }
+
+      .about-content {
+        flex-direction: column;
+        /* 改为垂直排列 */
+        text-align: center;
+      }
+
+      .submit-btn {
+        align-self: stretch;
+        /* 按钮撑满宽度 */;
+      }
+    }
+  </style>
+  <!-- ========== CSS 样式结束 ========== -->
+</head>
+
+<body>
+  <!-- ==================== 导航栏 ==================== -->
+  <nav>
+    <div class="logo">XM.</div>
+    <!-- logo，点号显设计感 -->
+    <ul class="nav-links">
+      <li><a href=" ">首页</a ></li>
+      <li><a href="#projects">作品</a ></li>
+      <li><a href="#about">关于</a ></li>
+      <li><a href="#contact">联系</a ></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== Hero 头部 ==================== -->
+  <section id="home" class="hero">
+    <h1>创造有意义的作品</h1>
+    <!-- 渐变文字大标题 -->
+    <p>我是一名热爱前端开发的创作者，专注于构建简洁、优雅、实用的网页体验。</p >
+    <a href="#projects" class="btn">查看我的作品</a >
+    <!-- CTA按钮，点击跳转到作品区 -->
+  </section>
+
+  <!-- ==================== 作品集 ==================== -->
+  <section id="projects" class="section">
+    <h2 class="section-title">精选作品</h2>
+    <!-- h2 标题，下方有装饰线 -->
+    <div class="projects-grid">
+
+      <!-- 作品卡片 1 -->
+      <div class="project-card">
+        <div class="project-image">🌤️</div>
+        <!-- 表情符号做占位图 -->
+        <div class="project-info">
+          <h3>天气预报应用</h3>
+          <p>实时天气查询，支持城市搜索，动态背景随天气变化。</p >
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 作品卡片 2 -->
+      <div class="project-card">
+        <div class="project-image">✅</div>
+        <div class="project-info">
+          <h3>待办事项清单</h3>
+          <p>支持添加、删除、标记完成，数据本地存储不丢失。</p >
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">LocalStorage</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 作品卡片 3 -->
+      <div class="project-card">
+        <div class="project-image">📝</div>
+        <div class="project-info">
+          <h3>个人博客系统</h3>
+          <p>Markdown 写作，标签分类，响应式布局。</p >
+          <div class="tags">
+            <span class="tag">Vue.js</span>
+            <span class="tag">Markdown</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 作品卡片 4 -->
+      <div class="project-card">
+        <div class="project-image">🎨</div>
+        <div class="project-info">
+          <h3>在线画板</h3>
+          <p>Canvas 实现，支持画笔颜色、粗细调节和橡皮擦。</p >
+          <div class="tags">
+            <span class="tag">Canvas</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 关于我 ==================== -->
+  <section id="about" class="section">
+    <h2 class="section-title">关于我</h2>
+    <div class="about-content">
+      <div class="avatar"></div>
+      <!-- 渐变色圆形头像占位 -->
+      <div class="about-text">
+        <h3>你好，我是小明</h3>
+        <p>
+          一名前端开发爱好者，擅长将设计稿转化为流畅的网页体验。
+          我相信好的代码应该像好的文章一样——清晰、简洁、有力量。
+        </p >
+        <p>
+          技术栈：HTML / CSS / JavaScript / React / Vue.js
+        </p >
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 联系我 ==================== -->
+  <section id="contact" class="section">
+    <h2 class="section-title">联系我</h2>
+    <form class="contact-form">
+      <!-- 表单不会真正提交，只是演示 -->
+      <input type="text" placeholder="你的名字" required>
+      <!-- placeholder 是占位提示文字 -->
+      <input type="email" placeholder="你的邮箱" required>
+      <textarea placeholder="写下你想说的话..."></textarea>
+      <button type="submit" class="submit-btn">发送消息</button>
+    </form>
+  </section>
+
+  <!-- ==================== 页脚 ==================== -->
+  <footer>
+    <p>© 2026 Xiao Ming. All rights reserved.</p >
+  </footer>
+</body>
+</html>
