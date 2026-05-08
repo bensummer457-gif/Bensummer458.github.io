@@ -23,9 +23,9 @@
     body {
       font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       /* 系统默认字体，中文用苹方/微软雅黑 */
-      background-color: #ffabb2;
+      background-color: #1a1a1a;
       /* 深黑色背景，显高级 */
-      color: #e0e0e0;
+      color: #333333;
       /* 浅灰白色文字，深色背景上不刺眼 */
       line-height: 1.7;
       /* 行高，让文字之间呼吸感更好 */
@@ -514,6 +514,13 @@
     <h2 class="section-title">联系我</h2>
     <form class="contact-form">
       <!-- 表单不会真正提交，只是演示 -->
+  <p style="text-align:center; color:#64ffda;">📧 或者直接发邮件：example@email.com</p >
+  
+  <input type="text" placeholder="你的名字" required>
+  <input type="email" placeholder="你的邮箱" required>
+  <textarea placeholder="写下你想说的话..."></textarea>
+  <button type="submit" class="submit-btn">发送消息</button>
+</form>
       <input type="text" placeholder="你的名字" required>
       <!-- placeholder 是占位提示文字 -->
       <input type="email" placeholder="你的邮箱" required>
